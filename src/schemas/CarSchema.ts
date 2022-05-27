@@ -1,6 +1,7 @@
 import { z } from 'zod';
+import VehicleSchema from './VehicleSchema';
 
-export default z.object({
+export default VehicleSchema.extend({
   doorsQty: z
     .number({
       required_error: 'Quantity of door is required',
