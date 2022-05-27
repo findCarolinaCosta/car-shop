@@ -3,26 +3,21 @@ import { ResponseError, Controller, RequestWithBody } from './index';
 import { Car as ICar } from '../interfaces/CarInterface';
 import CarService from '../services/CarService';
 
-const twentyFourHexCharacters = /[0-9A-Fa-f]{24}/g;
-
 export default class CarController extends Controller<ICar> {
-  private $route: string;
-
   constructor(
     service = new CarService(),
     route = '/cars',
   ) {
-    super(service);
+    super(service, route);
     this.$route = route;
   }
-
-  get route() { return this.$route; }
 
   readOne = async (
     req: Request<{ id: string }>,
     res: Response<ICar | ResponseError>,
   ): Promise<typeof res> => {
     const { id } = req.params;
+    const twentyFourHexCharacters = /[0-9A-Fa-f]{24}/g;
 
     if (!twentyFourHexCharacters.test(id)) {
       return res.status(400).json({ error: this.errors.requiredId });
@@ -67,7 +62,8 @@ export default class CarController extends Controller<ICar> {
     res: Response<ICar | ResponseError>,
   ): Promise<typeof res> => {
     const { params: { id }, body } = req;
-    if (!twentyFourHexCharacters.test(id)) {
+    
+    if (!/[0-9A-Fa-f]{24}/g.test(id)) {
       return res.status(400).json({ error: this.errors.requiredId });
     }
 
@@ -86,11 +82,13 @@ export default class CarController extends Controller<ICar> {
     }
   };
 
-  public async delete(
+  public delete = async (
     req: Request<{ id: string }>,
     res: Response<ICar | ResponseError>,
-  ): Promise<typeof res | void> {
+  ): Promise<typeof res | void> => {
     const { id } = req.params;
+    const twentyFourHexCharacters = /[0-9A-Fa-f]{24}/g;
+
     if (!twentyFourHexCharacters.test(id)) {
       return res.status(400).json({ error: this.errors.requiredId });
     }
@@ -104,5 +102,5 @@ export default class CarController extends Controller<ICar> {
       console.error(err);
       return res.status(500).json({ error: this.errors.internal });
     }
-  }
+  };
 }
