@@ -11,7 +11,8 @@ export interface RequestWithBody<T> extends Request {
 
 enum ControllerErrors {
   internal = 'Internal Server Error',
-  requiredId = 'Id is required',
+  notFound = 'Object not found',
+  requiredId = ' Id must have 24 hexadecimal characters',
   badRequest = 'Bad request',
 }
 
@@ -50,5 +51,5 @@ export abstract class Controller<T> {
   abstract delete(
     req: RequestWithBody<T>,
     res: Response<T | ResponseError>
-  ): Promise<typeof res>;
+  ): Promise<typeof res | void>;
 }
