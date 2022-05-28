@@ -1,8 +1,8 @@
-import { Model, Document } from 'mongoose';
+import { Model } from 'mongoose';
 import { Model as IModel } from '../interfaces/ModelInterface';
 
 abstract class MongoModel<T> implements IModel<T> {
-  constructor(protected model: Model<T & Document>) {}
+  constructor(protected model: Model<T>) {}
 
   public create = async (obj: T): Promise<T> => this.model.create({ ...obj });
 
