@@ -24,11 +24,6 @@ export default z.object({
     required_error: 'Color is required',
     invalid_type_error: 'Color must be a string',
   }).min(3, { message: 'Color must be 3 or more characters long' }),
-  status: z
-    .optional(z.boolean({
-      required_error: 'Status is required',
-      invalid_type_error: 'Status must be a boolean',
-    })),
   buyValue: z.number({
     required_error: 'Buy value is required',
     invalid_type_error: 'Buy value must be a number',
