@@ -10,8 +10,8 @@ export default VehicleSchema.extend({
       invalid_type_error: 'EngineCapacity must be a number',
     })
     .min(
-      0,
-      { message: 'EngineCapacity of seats must be equal or greater than 0' },
+      1,
+      { message: 'EngineCapacity of seats must be greater than 0' },
     )
     .max(
       2500,

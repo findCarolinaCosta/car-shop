@@ -30,4 +30,12 @@ export default z.object({
   }).int({
     message: 'Buy value must be an integer',
   }),
+  _id: z.optional(
+    z
+      .string({ invalid_type_error: 'Id must be a string' })
+      .regex(
+        /^[0-9a-fA-F]{24}$/,
+        { message: 'Id must have 24 hexadecimal characters' },
+      ),
+  ),
 });
