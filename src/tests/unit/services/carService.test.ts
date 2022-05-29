@@ -98,28 +98,5 @@ describe('Car service tests', () => {
       expect(seatsMinCarTest).to.have.property('error');
       expect(seatsMaxCarTest).to.have.property('error');
     })
-
-    it("should not update car if don't passed correct object infos expected", async () => {
-      const modelCarTest = await carService.update(data[0]._id, listToTestErrors.modelCharacterMin) as ServiceError;
-      const yearMinCarTest = await carService.update(data[0]._id, listToTestErrors.yearMin) as ServiceError;
-      const yearMaxCarTest = await carService.update(data[0]._id, listToTestErrors.yearMax) as ServiceError;
-      const colorCarTest = await carService.update(data[0]._id, listToTestErrors.colorCharacterMin) as ServiceError;
-      const buyValueCarTest = await carService.update(data[0]._id, listToTestErrors.buyValueNotInt) as ServiceError;
-      const doorsMinCarTest = await carService.update(data[0]._id, listToTestErrors.doorsMin) as ServiceError;
-      const doorsMaxCarTest = await carService.update(data[0]._id, listToTestErrors.doorsMax) as ServiceError;
-      const seatsMinCarTest = await carService.update(data[0]._id, listToTestErrors.doorsMin) as ServiceError;
-      const seatsMaxCarTest = await carService.update(data[0]._id, listToTestErrors.doorsMax) as ServiceError;
-      
-      expect('error' in modelCarTest).to.be.true;
-      expect('error' in modelCarTest).to.be.true;
-      expect('error' in yearMinCarTest).to.be.true;
-      expect('error' in yearMaxCarTest).to.be.true;
-      expect('error' in colorCarTest).to.be.true;
-      expect('error' in buyValueCarTest).to.be.true;
-      expect('error' in doorsMinCarTest).to.be.true;
-      expect('error' in doorsMaxCarTest).to.be.true;
-      expect('error' in seatsMinCarTest).to.be.true;
-      expect('error' in seatsMaxCarTest).to.be.true;
-    })
   })
 });

@@ -1,8 +1,8 @@
 import { SafeParseReturnType } from 'zod';
-import { ServiceError, Service } from '.';
-import CarModel from '../models/CarModel';
-import { Model as IModel } from '../interfaces/ModelInterface';
+import { Service, ServiceError } from '.';
 import { Car as ICar } from '../interfaces/CarInterface';
+import { Model as IModel } from '../interfaces/ModelInterface';
+import CarModel from '../models/CarModel';
 import CarSchema from '../schemas/CarSchema';
 
 class CarService extends Service<ICar> {
@@ -10,7 +10,7 @@ class CarService extends Service<ICar> {
     super(model);
   }
 
-  public create = async (obj: ICar): Promise<ICar | ServiceError | null> => {
+  public create = async (obj: ICar): Promise<ICar | ServiceError> => {
     const parsed: SafeParseReturnType<ICar, ICar> = CarSchema.safeParse(obj);
 
     if (!parsed.success) {
@@ -18,17 +18,6 @@ class CarService extends Service<ICar> {
     }
     
     return this.model.create(parsed.data);
-  };
-
-  public update = async (id: string, obj: ICar): 
-  Promise<ICar | ServiceError | null> => {
-    const parsed: SafeParseReturnType<ICar, ICar> = CarSchema.safeParse(obj);
-
-    if (!parsed.success) {
-      return { error: parsed.error };
-    }
-
-    return this.model.update(id, parsed.data);
   };
 }
 

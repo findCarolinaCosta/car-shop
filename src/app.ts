@@ -1,3 +1,4 @@
+import 'express-async-errors';
 import express, { Router } from 'express';
 import connectToDatabase from './connection';
 

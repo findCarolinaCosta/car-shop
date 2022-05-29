@@ -23,38 +23,31 @@ export default class CarController extends Controller<ICar> {
       return res.status(400).json({ error: this.errors.requiredId });
     }
 
-    try {
-      const car = await this.service.readOne(id);
+    const car = await this.service.readOne(id);
 
-      if (!car) {
-        return res.status(404).json({ error: this.errors.notFound });
-      }
-      return res.status(200).json(car);
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ error: this.errors.internal });
+    if (!car) {
+      return res.status(404).json({ error: this.errors.notFound });
     }
+    return res.status(200).json(car);
   };
 
   public create = async (
     req: RequestWithBody<ICar>,
     res: Response<ICar | ResponseError>,
   ): Promise<typeof res> => {
-    try {
-      const { body } = req;
-      const newCar = await this.service.create(body);
+    const { body } = req;
 
-      if (!newCar) {
-        return res.status(400).json({ error: this.errors.badRequest });
-      }
-      if ('error' in newCar) {
-        return res.status(400).json(newCar);
-      }
-      return res.status(201).json(newCar);
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ error: this.errors.internal });
+    if (!body) return res.status(400).json({ error: this.errors.badRequest });
+      
+    const newCar = await this.service.create(body);
+
+    if (!newCar) throw new Error(`newCar = ${newCar}`);
+
+    if ('error' in newCar) {
+      return res.status(400).json(newCar);
     }
+
+    return res.status(201).json(newCar);
   };
 
   update = async (
@@ -71,15 +64,11 @@ export default class CarController extends Controller<ICar> {
       return res.status(400).json({ error: this.errors.badRequest });
     }
 
-    try {
-      const updatedCar = await this.service.update(id, body);
+    const updatedCar = await this.service.update(id, body);
 
-      return !updatedCar 
-        ? res.status(404).json({ error: this.errors.notFound }) 
-        : res.status(200).json(updatedCar);
-    } catch (err) {
-      return res.status(500).json({ error: this.errors.internal });
-    }
+    return !updatedCar 
+      ? res.status(404).json({ error: this.errors.notFound }) 
+      : res.status(200).json(updatedCar);
   };
 
   public delete = async (
@@ -93,14 +82,9 @@ export default class CarController extends Controller<ICar> {
       return res.status(400).json({ error: this.errors.requiredId });
     }
 
-    try {
-      const car = await this.service.delete(id);
-      return !car
-        ? res.status(404).json({ error: this.errors.notFound })
-        : res.status(204).end();
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ error: this.errors.internal });
-    }
+    const car = await this.service.delete(id);
+    return !car
+      ? res.status(404).json({ error: this.errors.notFound })
+      : res.status(204).end();
   };
 }
