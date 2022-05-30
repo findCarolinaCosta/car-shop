@@ -8,7 +8,9 @@ import chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
 
-interface CarDocument extends Car, Document {}
+interface CarDocument extends Car, Document {
+  _id?: string
+}
 
 
 const data = [{
