@@ -1,9 +1,9 @@
 import { expect } from 'chai';
+import { ZodError } from 'zod';
 import CarModel from '../../../models/CarModel';
 import CarService from '../../../services/CarService';
 import { carModelMock } from './utils/carModelMock';
-import listToTestErrors from './utils/listToTestErrors';
-import { ZodError } from 'zod';
+import { carTest } from './utils/listToTestErrors';
 
 interface ICar {
   _id: string;
@@ -78,15 +78,15 @@ describe('Car service tests', () => {
     })
 
     it("should not create car if don't passed correct object infos expected", async () => {
-      const modelCarTest = await carService.create(listToTestErrors.modelCharacterMin) as ServiceError;
-      const yearMinCarTest = await carService.create(listToTestErrors.yearMin) as ServiceError;
-      const yearMaxCarTest = await carService.create(listToTestErrors.yearMax) as ServiceError;
-      const colorCarTest = await carService.create(listToTestErrors.colorCharacterMin) as ServiceError;
-      const buyValueCarTest = await carService.create(listToTestErrors.buyValueNotInt) as ServiceError;
-      const doorsMinCarTest = await carService.create(listToTestErrors.doorsMin) as ServiceError;
-      const doorsMaxCarTest = await carService.create(listToTestErrors.doorsMax) as ServiceError;
-      const seatsMinCarTest = await carService.create(listToTestErrors.doorsMin) as ServiceError;
-      const seatsMaxCarTest = await carService.create(listToTestErrors.doorsMax) as ServiceError;
+      const modelCarTest = await carService.create(carTest.modelCharacterMin) as ServiceError;
+      const yearMinCarTest = await carService.create(carTest.yearMin) as ServiceError;
+      const yearMaxCarTest = await carService.create(carTest.yearMax) as ServiceError;
+      const colorCarTest = await carService.create(carTest.colorCharacterMin) as ServiceError;
+      const buyValueCarTest = await carService.create(carTest.buyValueNotInt) as ServiceError;
+      const doorsMinCarTest = await carService.create(carTest.doorsMin) as ServiceError;
+      const doorsMaxCarTest = await carService.create(carTest.doorsMax) as ServiceError;
+      const seatsMinCarTest = await carService.create(carTest.doorsMin) as ServiceError;
+      const seatsMaxCarTest = await carService.create(carTest.doorsMax) as ServiceError;
 
       expect(modelCarTest).to.have.property('error');
       expect(yearMinCarTest).to.have.property('error');

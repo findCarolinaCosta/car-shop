@@ -17,7 +17,7 @@ export default z.object({
       { message: 'Year must be equal or greater than 1900' },
     )
     .max(
-      2022,
+      new Date().getFullYear(),
       { message: 'Year must be equal or less than 2022' },
     ),
   color: z.string({
