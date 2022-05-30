@@ -29,22 +29,22 @@ const data: IMotorcycle[] = [
 
 export const motorcycleModelMock = {
   create: async (obj: IMotorcycle): Promise<IMotorcycle> => {
-    return data[0]
+    return obj;
   },
 
-  read:  async (): Promise<IMotorcycle[]> => {
+  read: async (): Promise<IMotorcycle[]> => {
     return data;
   },
 
-  readOne: async(id: string): Promise<IMotorcycle | null> => {
-    if (data[0]._id !== id) return null;
+  readOne: async(_id: string): Promise<IMotorcycle | null> => {
+    if (data[0]._id !== _id) return null;
     return data[0];
   },
 
   update: async (id: string, obj: IMotorcycle): Promise<IMotorcycle | null> => {
-    const findCar = data.find((car) => car._id === id);
+    const findMotocycle = data.find((car) => car._id === id);
     
-    if (!findCar) return null;
+    if (!findMotocycle) return null;
 
     const newData = data.map(car => {
       if (car._id === id) return ({
@@ -59,9 +59,9 @@ export const motorcycleModelMock = {
   },
 
   delete: async (id: string): Promise<IMotorcycle | null> => {
-    const findCar = data.find((car) => car._id === id);
+    const findMotocycle = data.find((car) => car._id === id);
 
-    if (!findCar) return null;
+    if (!findMotocycle) return null;
 
     return data[0];
   }
