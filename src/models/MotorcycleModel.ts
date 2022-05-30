@@ -9,6 +9,7 @@ const MotorcycleModelSchema = new Schema<Motorcycle>(
     color: String,
     buyValue: Number,
     category: String,
+    engineCapacity: Number,
   },
   { versionKey: false },
 );
